@@ -1,7 +1,13 @@
 'use client'
 import { useState } from "react";
 
-export default function ChatForm({ setResposta, setLoading, loading }) {
+type ChatFormProps = {
+  setResposta: React.Dispatch<React.SetStateAction<string>>;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  loading: boolean;
+};
+
+export default function ChatForm({ setResposta, setLoading, loading }: ChatFormProps) {
   const [pergunta, setPergunta] = useState("");
   const [bairro, setBairro] = useState("");
   const [construtora, setConstrutora] = useState("");
@@ -9,7 +15,7 @@ export default function ChatForm({ setResposta, setLoading, loading }) {
   const [valorMax, setValorMax] = useState("");
   const [status, setStatus] = useState("");
 
-  async function handleSubmit(e) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setResposta("");
     setLoading(true);
@@ -30,21 +36,26 @@ export default function ChatForm({ setResposta, setLoading, loading }) {
   return (
     <form className="space-y-3" onSubmit={handleSubmit}>
       <input
-        className="border rounded p-2 w-full"
+        className="border rounded p-2 w-full text-gray-900 bg-white placeholder-gray-500 border-gray-300"
         placeholder="Digite sua pergunta..."
         value={pergunta}
         onChange={e => setPergunta(e.target.value)}
         required
       />
       <div className="flex gap-2">
-        <input className="border rounded p-2 flex-1" placeholder="Bairro" value={bairro} onChange={e => setBairro(e.target.value)} />
-        <input className="border rounded p-2 flex-1" placeholder="Construtora" value={construtora} onChange={e => setConstrutora(e.target.value)} />
+        <input className="border rounded p-2 flex-1 text-gray-900 bg-white placeholder-gray-500 border-gray-300"
+          placeholder="Bairro" value={bairro} onChange={e => setBairro(e.target.value)} />
+        <input className="border rounded p-2 flex-1 text-gray-900 bg-white placeholder-gray-500 border-gray-300"
+          placeholder="Construtora" value={construtora} onChange={e => setConstrutora(e.target.value)} />
       </div>
       <div className="flex gap-2">
-        <input className="border rounded p-2 flex-1" placeholder="Valor Mínimo" value={valorMin} onChange={e => setValorMin(e.target.value)} />
-        <input className="border rounded p-2 flex-1" placeholder="Valor Máximo" value={valorMax} onChange={e => setValorMax(e.target.value)} />
+        <input className="border rounded p-2 flex-1 text-gray-900 bg-white placeholder-gray-500 border-gray-300"
+          placeholder="Valor Mínimo" value={valorMin} onChange={e => setValorMin(e.target.value)} />
+        <input className="border rounded p-2 flex-1 text-gray-900 bg-white placeholder-gray-500 border-gray-300"
+          placeholder="Valor Máximo" value={valorMax} onChange={e => setValorMax(e.target.value)} />
       </div>
-      <input className="border rounded p-2 w-full" placeholder="Status (pronto, em construção...)" value={status} onChange={e => setStatus(e.target.value)} />
+      <input className="border rounded p-2 w-full text-gray-900 bg-white placeholder-gray-500 border-gray-300"
+        placeholder="Status (pronto, em construção...)" value={status} onChange={e => setStatus(e.target.value)} />
       <button
         className="bg-blue-700 text-white rounded px-4 py-2 w-full"
         type="submit"
